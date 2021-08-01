@@ -140,7 +140,7 @@ class _questionPageState extends State<questionPage> {
 
     return ChangeNotifierProvider(
         create: (_) => AuthServices(),
-        child:Scaffold(
+        child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           reverse: true,
@@ -259,7 +259,7 @@ class _questionPageState extends State<questionPage> {
           return Text("Loading");
         }
         var userDocument = snapshot.data;
-        return userDocument["members"].length<2 ? Text(myList[sim]) : SimpleDialog(
+        return userDocument["members"].length==1 ? Text(myList[sim]) : SimpleDialog(
           children: [
             Text( "Diğerlerinin gelmesini bekliyoruz!")
           ],

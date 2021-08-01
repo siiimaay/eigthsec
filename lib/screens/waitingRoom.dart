@@ -1,67 +1,43 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eight_seconds/models/auth_service.dart';
 import 'package:eight_seconds/screens/questionPage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/auth_service.dart';
 
 class WaitingRoom extends StatefulWidget {
-  const WaitingRoom({ key }) : super(key: key);
-
+   String roomID;
+   WaitingRoom(this.roomID, {Key key}): super(key: key);
   @override
   _WaitingRoomState createState() => _WaitingRoomState();
 }
 
 class _WaitingRoomState extends State<WaitingRoom> {
-  FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController _groupNameController = TextEditingController();
+   
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider(
+    final _Auth = Provider.of<AuthServices>(context);
+    int count = 0;
+    return ChangeNotifierProvider(
         create: (_) => AuthServices(),
         child:Scaffold(
+       
       body: StreamBuilder(
       stream: firestoreInstance.collection('GameRooms').doc("5q3YWF7BmSis6SWGDLMy").snapshots(),
-      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-    if (!snapshot.hasData) {
+       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+     if (snapshot.hasData==false) {
       return Text("Loading");
     }
     var userDocument = snapshot.data;
-    return userDocument["members"].length==3 ?   Future.delayed(const Duration(milliseconds: 500), () {
- Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => questionPage()),
-          (route) => false); })  : SimpleDialog(
+     return userDocument["members"].length==3 ?  Center(child: Text(widget.roomID.toString().toString()))  : SimpleDialog(
       children: [
-        Text( "Diğerlerinin gelmesini bekliyoruz!")
-      ],
-    );
-      }
-  )/*Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-    Center(
-      child: ClipRRect(
-        child: Container(
-          height: 100,
-          width: 100,
-          color:Colors.lime,child:Text("buraya odanın kodu gelecek!") ,),
-      ),
-    ),
-
-    Container(child:
-      ElevatedButton(
-        onPressed: (){
-          firestoreInstance.collection("GameRooms").doc("BQ82zpG29Ecg8rmdOzCx").set({
-            _auth.currentUser.uid: true,
-  },SetOptions(merge:true)).then((_) {
-    print("success!");
-  });
-        },
-        child: Text("READY"),
-      )
-    ),
-      ],
-    ),*/
-    ));
+         Text( "Diğerlerinin gelmesini bekliyoruz!")
+       ],
+     );
+       }
+   )
+));
   }
 }

@@ -14,12 +14,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+        create: (_) => AuthServices(),
+        child:MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(scaffoldBackgroundColor: Color(0xff009683)),
       home: App(),
-    );
+    ));
   }
 }
 

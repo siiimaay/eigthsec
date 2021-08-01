@@ -1,4 +1,5 @@
 
+import 'package:eight_seconds/screens/joinRoom.dart';
 import 'package:eight_seconds/screens/questionPage.dart';
 import 'package:eight_seconds/screens/waitingRoom.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,18 +69,17 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                     onPressed: () {
                     
-                      _Auth.createGroup(_groupNameController.text);
+                      String id =_Auth.createGroup(_groupNameController.text).toString();
+                      //debugPrint("bu dimi");
                         
 
 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-        create: (_) => AuthServices(),
-        child: WaitingRoom(),
+                          builder: (context) => WaitingRoom(id.toString().toString())
                         ),
-                      ));
+                      );
                     }
 
                     //_Auth.createGroup(_groupNameController.text)

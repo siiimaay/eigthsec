@@ -117,17 +117,15 @@ class AuthServices with ChangeNotifier {
   }*/
 
   Future<String> createGroup(String groupName) async {
-    String retVal = "error";
+    String retVal = "";
     List<String> members = List();
-    List<String> tokens = List();
 
     try {
-      members.add(_auth.currentUser.uid);
+     // members.add(_auth.currentUser.uid);
 
-      DocumentReference _docRef;
      // _docRef =  firestoreInstance.collection("GameRooms").doc(_docRef.id);
 
-      _docRef = await firestoreInstance.collection("GameRooms").add({
+     DocumentReference _docRef = await firestoreInstance.collection("GameRooms").add({
         
         'leader': _auth.currentUser.uid,
         'roomName': groupName,
@@ -135,16 +133,17 @@ class AuthServices with ChangeNotifier {
         
         
       });
-            debugPrint(_docRef.id.toString());
+       debugPrint(_docRef.id +" aslında olması gereken");
+    return _docRef.id.toString().toString();
+      //    debugPrint(_docRef.id.toString()+"aslında olması gereken");
 
-      _gameR.id = _docRef.id;
+      //_gameR.id = _docRef.id;
 
-      retVal = "success";
+    //  retVal = _docRef.id.toString();
     } catch (e) {
       print(e);
     }
 
-    return retVal;
   }
 
   Future<String> joinGroup(String groupId) async {
