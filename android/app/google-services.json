@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "176876240338",
+    "project_id": "eightseconds-d627f",
+    "storage_bucket": "eightseconds-d627f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:176876240338:android:3c4bc4d6421d419e5cdc0b",
+        "android_client_info": {
+          "package_name": "simayekici.eight_seconds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "176876240338-e2cbfjr2dvu4cdjsom05es5r6tu7kkb2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "simayekici.eight_seconds",
+            "certificate_hash": "875f703c5796d20bc6aea24d055c240b8660c220"
+          }
+        },
+        {
+          "client_id": "176876240338-k187enc9srtdpb89fmoio2m7i0gt823f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4emZkPddS7fWkICNZWVeFMOXSyT-LR-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "176876240338-k187enc9srtdpb89fmoio2m7i0gt823f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
