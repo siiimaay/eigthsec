@@ -88,8 +88,11 @@ class AuthServices with ChangeNotifier {
       UserCredential rslt = await _auth.signInWithCredential(credential);
 
       user = rslt.user;
+      
       print(
           "oturum açıldı " + user.displayName + _auth.currentUser.displayName);
+          addUser(user.uid);
+          debugPrint("success" );
     } catch (e) {
       durum = UserStat.NotSignedUser;
       debugPrint("hata" + e);
@@ -115,36 +118,45 @@ class AuthServices with ChangeNotifier {
       print(value.id);
     });
   }*/
-
-  Future<String> createGroup(String groupName) async {
-    String retVal = "";
-    List<String> members = List();
+  
+ Future<String> addUser(userID) async {
+    //String retVal = "";
+    //List<String> members = List();
 
     try {
      // members.add(_auth.currentUser.uid);
 
-     // _docRef =  firestoreInstance.collection("GameRooms").doc(_docRef.id);
-
-     DocumentReference _docRef = await firestoreInstance.collection("GameRooms").add({
+    DocumentReference  _docRef=  firestoreInstance.collection("users").doc(userID);
+ final doc = await _docRef.get();
+   if (!doc.exists) {
+     print('No such document exista!');
+   } else {
+     
+     
+    await _docRef.set({
         
-        'leader': _auth.currentUser.uid,
-        'roomName': groupName,
-        'groupCreated': Timestamp.now(),
+        'name': _auth.currentUser.displayName,
+        'uid': _auth.currentUser.uid,
+        'userCreatedAt': Timestamp.now(),
         
         
-      });
-       debugPrint(_docRef.id +" aslında olması gereken");
-    return _docRef.id.toString().toString();
+      },SetOptions(merge: true));
+   }
+      
+     //  debugPrint(_docRef.id +" aslında olması gereken");
+    //return _docRef.id.toString().toString();
       //    debugPrint(_docRef.id.toString()+"aslında olması gereken");
 
       //_gameR.id = _docRef.id;
-
+print("success");
     //  retVal = _docRef.id.toString();
     } catch (e) {
       print(e);
     }
-
+return "success";
   }
+
+ 
 
   Future<String> joinGroup(String groupId) async {
     String retVal = "error";

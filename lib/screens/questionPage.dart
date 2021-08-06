@@ -13,6 +13,7 @@ class questionPage extends StatefulWidget {
 }
 
 FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+
 Map map = Map<int, String>();
 String textHolder = "deniyoruz";
 
@@ -48,7 +49,7 @@ class _questionPageState extends State<questionPage> {
   Map<String, int> qu = {"Simay": 2, "Ekici": 4};
 
   void questionsReturn() {
-    const oneSec = const Duration(seconds:1);
+    const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
       (Timer _timer) => setState(
@@ -58,7 +59,7 @@ class _questionPageState extends State<questionPage> {
           // sim = rng.nextInt(3);
           sim = sim + 1;
 
-          if (sim ==9) {
+          if (sim == 9) {
             _timer.cancel();
           }
         },
@@ -87,6 +88,14 @@ class _questionPageState extends State<questionPage> {
   @override
   Widget build(BuildContext context) {
     final _Auth = Provider.of<AuthServices>(context);
+     // ignore: deprecated_member_use
+     List<int> rndm = List<int>(5);
+     rndm[0] = 5;
+    rndm[1] =7;
+    rndm[2] = 4;
+    rndm[3] = 2;
+    rndm[4] = 6;
+    int skor = 1;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final Stream<QuerySnapshot> _usersStream =
         FirebaseFirestore.instance.collection('questions').snapshots();
@@ -141,76 +150,76 @@ class _questionPageState extends State<questionPage> {
     return ChangeNotifierProvider(
         create: (_) => AuthServices(),
         child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
-          reverse: true,
-          child: Column(children: [
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50.0),
-                        topRight: Radius.circular(50.0),
-                      ),
-                      child: Container(
-                        color: Colors.blueGrey.shade300,
-                        height: 80,
-                        width: 150,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ClipOval(
-                                child: Image.network(
-                                  _auth.currentUser.photoURL,
+            resizeToAvoidBottomInset: true,
+            body: SingleChildScrollView(
+              reverse: true,
+              child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50.0),
+                            topRight: Radius.circular(50.0),
+                          ),
+                          child: Container(
+                            color: Colors.blueGrey.shade300,
+                            height: 80,
+                            width: 150,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      _auth.currentUser.photoURL,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 3.0,
-                            ),
-                            Expanded(
-                                child: Text(
-                              _auth.currentUser.displayName,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ))
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(5.0),
-                        topRight: Radius.circular(5.0),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey.shade300,
-                        ),
-                        height: 80,
-                        width: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(_start.toString(),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Expanded(
+                                    child: Text(
+                                  _auth.currentUser.displayName,
                                   style: TextStyle(
-                                      fontSize: 36,
+                                      fontSize: 16,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              VerticalDivider(
-                                color: Colors.white60,
-                              ),
-                              /*  TimeCircularCountdown(
+                                      fontWeight: FontWeight.bold),
+                                ))
+                              ],
+                            ),
+                          )),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5.0),
+                            topRight: Radius.circular(5.0),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey.shade300,
+                            ),
+                            height: 80,
+                            width: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(_start.toString(),
+                                      style: TextStyle(
+                                          fontSize: 36,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold)),
+                                  VerticalDivider(
+                                    color: Colors.white60,
+                                  ),
+                                  /*  TimeCircularCountdown(
                                 diameter: 3,
                                 unit: CountdownUnit.second,
                                 countdownTotal: 30,
@@ -218,57 +227,67 @@ class _questionPageState extends State<questionPage> {
                                     print('Updated'),
                                 onFinished: () => print('Countdown finished'),
                               )*/
-                            ],
-                          ),
-                        ),
-                      ))
-                ],
-              ),
-            ),
-            Stack(children: [
-              Center(
-                  child: ClipRRect(
+                                ],
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+                Stack(children: [
+                  Center(
+                    child: ClipRRect(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10.0),
                         bottomRight: Radius.circular(10.0),
                       ),
                       child: Container(
-                        height: 300,
-                        width: 300,
-                        color: Colors.blueGrey.shade200,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10.0),
-                              bottomRight: Radius.circular(10.0),
-                            ),
-                            child: Container(
-                                height: 125,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  color: Color(0xff009683),
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                ),
-                                child: Center(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(28.0),
-                                  child: StreamBuilder(
-      stream: firestoreInstance.collection('GameRooms').doc("5q3YWF7BmSis6SWGDLMy").snapshots(),
-      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return Text("Loading");
-        }
-        var userDocument = snapshot.data;
-        return userDocument["members"].length==1 ? Text(myList[sim]) : SimpleDialog(
-          children: [
-            Text( "Diğerlerinin gelmesini bekliyoruz!")
-          ],
-        );
-      }
-  )
-,)))
-            )),
-              /*  Padding(
+                          height: 300,
+                          width: 300,
+                          color: Colors.blueGrey.shade200,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10.0),
+                                bottomRight: Radius.circular(10.0),
+                              ),
+                              child: Container(
+                                  height: 125,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff009683),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2),
+                                  ),
+                                  child: Center(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(28.0),
+                                    child: StreamBuilder(
+                                        stream: firestoreInstance
+                                            .collection('GameRooms')
+                                            .doc("5q3YWF7BmSis6SWGDLMy")
+                                            .snapshots(),
+                                        builder: (context,
+                                            AsyncSnapshot<DocumentSnapshot>
+                                                snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return Text("Loading");
+                                          }
+                                          var userDocument = snapshot.data;
+                                          
+
+                                          return userDocument["members"]
+                                                      .length == 3
+                                              ? Text(myList[sim])
+                                                
+                                              : SimpleDialog(
+                                                  children: [
+                                                    Text(
+                                                        "Diğerlerinin gelmesini bekliyoruz!")
+                                                  ],
+                                                );
+                                        }),
+                                  ))))),
+                      /*  Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: FloatingActionButton(
 
@@ -276,37 +295,39 @@ class _questionPageState extends State<questionPage> {
                     _timer.cancel();
                   },
                 ),
-              ),*/),),
-              Padding(
-                padding: const EdgeInsets.only(top: 260.0),
-                child: Center(
-                  child: Container(
-                    width: 200,
-                    height: 75,
-                    child: new TextFormField(
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: new InputDecoration(
-                        filled: true,
-                        hoverColor: Colors.black,
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(),
+              ),*/
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 260.0),
+                    child: Center(
+                      child: Container(
+                        width: 200,
+                        height: 75,
+                        child: new TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: new InputDecoration(
+                            filled: true,
+                            hoverColor: Colors.black,
+                            fillColor: Colors.white,
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: new BorderSide(),
+                            ),
+                          ),
+                          style: new TextStyle(
+                            fontFamily: "Poppins",
+                          ),
                         ),
-                      ),
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
                       ),
                     ),
                   ),
-                ),
-              ),
-            ])
-          ]),
-        )));
+                ])
+              ]),
+            )));
   }
 
   main() async {
@@ -315,9 +336,12 @@ class _questionPageState extends State<questionPage> {
     await for (String i in stream) {
       print(i);
     }
-  }
 
-// This callback modify the given value to even number.
+  }
+  
+  Bool checkAnswer()
+  {
+    }// This callback modify the given value to even number.
   String callback(int value) {
     List<String> myList = List<String>(3);
     myList[0] = 'simay';

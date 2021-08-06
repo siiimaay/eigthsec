@@ -1,7 +1,9 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eight_seconds/screens/joinRoom.dart';
 import 'package:eight_seconds/screens/questionPage.dart';
 import 'package:eight_seconds/screens/waitingRoom.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   TextEditingController _groupNameController = TextEditingController();
+  FirebaseAuth authUser = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final _Auth = Provider.of<AuthServices>(context);
@@ -67,17 +70,16 @@ class _CreateGroupState extends State<CreateGroup> {
                         ),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
                     
-                      String id =_Auth.createGroup(_groupNameController.text).toString();
-                      //debugPrint("bu dimi");
-                        
-
-
+                      String id = await createGroup(_groupNameController.text);
+                      debugPrint(id+"budur");
+                      _Auth.addUser(authUser.currentUser.uid);
+                      //debugPrint("bu dimi");                     
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WaitingRoom(id.toString().toString())
+                          builder: (context) => WaitingRoom(id)
                         ),
                       );
                     }
@@ -93,5 +95,36 @@ class _CreateGroupState extends State<CreateGroup> {
         ],
       ),
     ));
+  }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+   Future<String> createGroup(String groupName) async {
+    String retVal = "";
+    List<String> members = List();
+
+    try {
+     // members.add(_auth.currentUser.uid);
+
+     // _docRef =  firestoreInstance.collection("GameRooms").doc(_docRef.id);
+
+     DocumentReference _docRef = await firestoreInstance.collection("GameRooms").add({
+        
+        'leader': _auth.currentUser.uid,
+        'roomName': groupName,
+        'groupCreated': Timestamp.now(),
+        
+        
+      });
+       debugPrint(_docRef.id+" aslında olması gereken");
+    //return retVall=_docRef.id.toString().toString();
+      //    debugPrint(_docRef.id.toString()+"aslında olması gereken");
+
+      //_gameR.id = _docRef.id;
+      retVal = _docRef.id.toString();
+    } catch (e) {
+      print(e);
+    }
+    return retVal;
+
   }
 }
