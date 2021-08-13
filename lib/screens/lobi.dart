@@ -106,17 +106,17 @@ class _LobiPageState extends State<LobiPage> {
                               );
                             } else {
                               return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ChangeNotifierProvider(
-                                              create: (_) => AuthServices(),
-                                              child: questionPage()),
-                                    ),
-                                  );
-                                },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           ChangeNotifierProvider(
+                                //               create: (_) => AuthServices(),
+                                //               child: questionPage()),
+                                //     ),
+                                //   );
+                                // },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipOval(

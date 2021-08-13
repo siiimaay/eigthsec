@@ -14,6 +14,7 @@ class WaitingRoom extends StatefulWidget {
 }
 
 class _WaitingRoomState extends State<WaitingRoom> {
+  
   TextEditingController _groupNameController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
@@ -36,11 +37,11 @@ class _WaitingRoomState extends State<WaitingRoom> {
                     return Text("Loading");
                   }
                   var userDocument = snapshot.data;
-                  return userDocument['members'].length==8 ? 
+                  return userDocument['members'].length==3 ? 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => questionPage()
+                          builder: (context) => questionPage(widget.roomID)
                         ),
                       ) : Column(
                     mainAxisAlignment: MainAxisAlignment.center,

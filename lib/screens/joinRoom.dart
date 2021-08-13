@@ -73,8 +73,9 @@ class _JoinRoomState extends State<JoinRoom> {
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        _Auth.joinGroup(_groupIDController.text);
+                      onPressed: () async {
+                      String c= await _Auth.joinGroup(_groupIDController.text);
+                      
 
                         Navigator.push(
                           context,

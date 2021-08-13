@@ -1,8 +1,10 @@
 import 'package:eight_seconds/models/GameRooms.dart';
 import 'package:eight_seconds/models/auth_service.dart';
+import 'package:eight_seconds/screens/questionPage.dart';
 import 'package:eight_seconds/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -11,7 +13,9 @@ void main() async {
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

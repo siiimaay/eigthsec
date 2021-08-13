@@ -41,6 +41,7 @@ dependencies:
   flutter_dialogs: ^2.1.0
   circular_countdown: ^2.1.0
   timer_count_down: ^2.2.0
+  get: 
 
 
 dev_dependencies:
