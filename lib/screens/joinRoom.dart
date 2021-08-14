@@ -1,3 +1,5 @@
+import 'package:eight_seconds/screens/questionPage.dart';
+import 'package:eight_seconds/screens/waitingRoom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'GameRoom.dart';
@@ -74,17 +76,31 @@ class _JoinRoomState extends State<JoinRoom> {
                         ),
                       ),
                       onPressed: () async {
-                      String c= await _Auth.joinGroup(_groupIDController.text);
-                      
-
+                      bool c = await _Auth.joinGroup(_groupIDController.text);
+                      debugPrint(c.toString());
+                     if( c ==true){debugPrint("buraya niye girdi ki");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ChangeNotifierProvider(
                                 create: (_) => AuthServices(),
-                                child: GameRoom()),
+                                child:WaitingRoom(_groupIDController.text)),
                           ),
-                        );
+                        );}
+                        else{
+                          debugPrint("yanlış kod");
+                          SimpleDialog(children: [
+                            Text("YANLIŞ")
+                          ],);
+                        }
+                        
+
+                      
+                      
+                     
+                        
+
+                        
                       }
 
                       //_Auth.createGroup(_groupNameController.text)

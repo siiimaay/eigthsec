@@ -112,7 +112,7 @@ void mem() {
         .then((result) => {
           debugPrint(result["members"].toString()+"bu da mı yok"),
               questions4.addAll(result["members"]),
-               debugPrint(questions4.toString()+"bbb"),
+              // debugPrint(questions4.toString()+"bbb"),
                questions4.remove(_auth.currentUser.uid)
                  
                
@@ -123,8 +123,8 @@ void mem() {
    setState(() {
      
    });
-    debugPrint(questions4.toString()+"bbb");
-   debugPrint(han.toString()+"sjadklsaş");
+ //   debugPrint(questions4.toString()+"bbb");
+//debugPrint(han.toString()+"sjadklsaş");
 
   }
   void oku() {
@@ -140,9 +140,9 @@ void mem() {
               })
             });
     //   checkAnswer();
-                   debugPrint(_auth.currentUser.uid+"bu current");
+                 //  debugPrint(_auth.currentUser.uid+"bu current");
 
-     debugPrint(questions3.toString()+"as");
+    // debugPrint(questions3.toString()+"as");
     setState(() {});
   }
 

@@ -158,32 +158,34 @@ return "success";
 
  
 
-  Future<String> joinGroup(String groupId) async {
-    String retVal = "error";
-    List<String> members = List();
-    List<String> tokens = List();
-    try {
+  Future<bool> joinGroup(String groupId) async {
+    bool retVal = true;
+    List<String> members = List();    
       DocumentReference _docRef;
-      _docRef = await firestoreInstance.collection("GameRooms").doc(groupId);
 
-      members.add(_auth.currentUser.uid);
-      //tokens.add(userModel.notifToken);
-      await firestoreInstance.collection("GameRooms").doc(groupId).update({
-        'members': FieldValue.arrayUnion(members),
-      });
-      String x;
-      _gameR.id = x;
-      x = _docRef.id;
-      print(x);
+      _docRef =  firestoreInstance.collection("GameRooms").doc(groupId);
+      var setAda;
+      var nestedkey =_auth.currentUser.uid;
+     await _docRef.get().then((doc) => {
+    if (doc.exists) {
+        retVal =true,
+        debugPrint("exists"),
+        //members.add(_auth.currentUser.uid),
+    firestoreInstance.collection('GameRooms').doc(groupId).update({
+  "members.$nestedkey": 1
+})
+      //  firestoreInstance.collection("GameRooms").doc(groupId).update({
+      //   'members': FieldValue.arrayUnion(members),
+      
+     
 
-      retVal = "success";
-    } on PlatformException catch (e) {
-      retVal = "Lütfen doğru grup numarası girdiginizden emin olun!";
-      print(e);
-    } catch (e) {
-      print(e);
-    }
+    } else {
+        retVal =false,
 
+        // doc.data() will be undefined in this case
+        debugPrint("not")   
+ }
+      });  
     return retVal;
   }
 }
