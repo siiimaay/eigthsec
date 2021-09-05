@@ -53,7 +53,7 @@ class App extends StatelessWidget {
 
         // Otherwise, show something whilst waiting for initialization to complete
         return Scaffold(
-            body: CircularProgressIndicator(backgroundColor: Colors.white));
+            body: Center(child: Image.network('https://www.hareketligifler.net/data/media/1261/kum-saati-hareketli-resim-0007.gif')));
       },
     );
   }

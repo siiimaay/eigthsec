@@ -2,6 +2,8 @@ import 'package:eight_seconds/screens/questionPage.dart';
 import 'package:eight_seconds/screens/waitingRoom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'GameRoom.dart';
 import '../models/auth_service.dart';
 
@@ -78,7 +80,8 @@ class _JoinRoomState extends State<JoinRoom> {
                       onPressed: () async {
                       bool c = await _Auth.joinGroup(_groupIDController.text);
                       debugPrint(c.toString());
-                     if( c ==true){debugPrint("buraya niye girdi ki");
+                     if( c ==true){/*debugPrint("buraya niye girdi ki")*/
+                     
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -89,9 +92,13 @@ class _JoinRoomState extends State<JoinRoom> {
                         );}
                         else{
                           debugPrint("yanlış kod");
-                          SimpleDialog(children: [
-                            Text("YANLIŞ")
-                          ],);
+                          showTopSnackBar(
+                        context,
+                        CustomSnackBar.error(
+                          message:
+                              "Yanlış ya da eksik kod lütfen tekrar dene :)",
+                        ),
+                      );
                         }
                         
 

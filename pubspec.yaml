@@ -42,6 +42,9 @@ dependencies:
   circular_countdown: ^2.1.0
   timer_count_down: ^2.2.0
   get: 
+  progress_indicators: ^1.0.0
+  top_snackbar_flutter: ^1.0.0
+  
 
 
 dev_dependencies:

@@ -106,25 +106,17 @@ class _LobiPageState extends State<LobiPage> {
                               );
                             } else {
                               return InkWell(
-                                // onTap: () {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           ChangeNotifierProvider(
-                                //               create: (_) => AuthServices(),
-                                //               child: questionPage()),
-                                //     ),
-                                //   );
-                                // },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ClipOval(
-                                    child: Image.network(
-                                      _auth.currentUser.photoURL,
-                                    ),
-                                  ),
-                                ),
+                                 onTap: () {
+                                
+                                 },
+                                 child: Padding(
+                                   padding: const EdgeInsets.all(8.0),
+   child: ClipOval(
+                                     child: Image.network(
+                                       _auth.currentUser.photoURL,
+     ),
+                                   ),
+                                 ),
                               );
                             }
                           }()),
@@ -196,8 +188,53 @@ class _LobiPageState extends State<LobiPage> {
                     child: Image(
                         image: AssetImage("assets/images/kumsaati_logo.png"))),
                 SizedBox(height: 20),
+                 ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0),
+                    topRight: Radius.circular(50.0),
+                    bottomLeft: Radius.circular(50.0),
+                  ),
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, 0.75),
+                          blurRadius: 10.0,
+                          spreadRadius: 10.0,
+                        )
+                      ],
+                    ),
+                    child: RaisedButton(
+                      color: Colors.white,
+                      child: Text(
+                        "HEMEN OYNA  ",
+                        style: TextStyle(
+                            color: const Color(0xff009683), fontSize: 16.0),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider(
+                                create: (_) => AuthServices(),
+                                child: CreateGroup()),
+                          ),
+                        );
+                      },
+                    ),
+                  
+                  )),
                 // ignore: deprecated_member_use
-                ClipRRect(
+                SizedBox(height: 20,),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children:[
+                    ClipRRect(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     bottomRight: Radius.circular(50.0),
@@ -238,7 +275,7 @@ class _LobiPageState extends State<LobiPage> {
                     ),
                   
                   )),
-                SizedBox(height: 10),
+                SizedBox(width: 10),
                 // ignore: deprecated_member_use
                 ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -249,7 +286,7 @@ class _LobiPageState extends State<LobiPage> {
                   ),
                   child: Container(
                     height: 50,
-                    width: 130,
+                    width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(45.0),
                       boxShadow: <BoxShadow>[
@@ -280,6 +317,8 @@ class _LobiPageState extends State<LobiPage> {
                     ),
                   ),
                 ),
+                 ]
+               )
               ],
             )));
   }
