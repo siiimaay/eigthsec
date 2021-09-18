@@ -8,13 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../models/auth_service.dart';
 
-class questionPage extends StatefulWidget {
+class QuickGame extends StatefulWidget {
   String roomID;
   bool bitti = false;
     Map<String,dynamic> oyuncular;
-  questionPage(this.roomID, this.oyuncular, {Key key}) : super(key: key);
+  
   @override
-  _questionPageState createState() => _questionPageState();
+  _QuickGameState createState() => _QuickGameState();
 }
 var isim;
 int cntt = 0;
@@ -22,8 +22,8 @@ bool isAnswered = false;
 FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
 TextEditingController _answerController = TextEditingController();
 final FirebaseAuth _auth = FirebaseAuth.instance;
-
-class _questionPageState extends State<questionPage> {
+int cev = 0;
+class _QuickGameState extends State<QuickGame> {
   int sim = 0;
   Timer _timer;
   Timer _timer2;
@@ -75,20 +75,10 @@ questionsReturn();
     });
   }
 
-  // void checkAnswer(){
-  //   //Textcontrollerdan geleni check et. varsa arttır
-  //   if(_answerController.text ==3.toString())
-  //   cnt++;
-  //   setState(() {
-
-  //   });
-
-  // }
-
   int count = 0;
   List<String> memberList = new List<String>();
   CollectionReference questions =
-      FirebaseFirestore.instance.collection('questions');
+  FirebaseFirestore.instance.collection('questions');
   Map<String, dynamic> membersID = new Map<String, dynamic>();
   Map<String, dynamic> membersActive = new Map<String, dynamic>();
 
@@ -113,73 +103,47 @@ questionsReturn();
       ),
     );
   }
-     void evaluateAns() {
-    Timer.periodic(const Duration(seconds: 7), (t) {
-      setState(() {
-        isLoading = false; //set loading to false
-      });
-      t.cancel(); //stops the timer
-    });
-  }
 
   Map<String, dynamic> questions3 = new Map<String, dynamic>();
     Map<String, dynamic> questions4 = new Map<String, dynamic>();
     List<String> han = new List<String>();
-    Map<String, dynamic> userAnswers = new Map<String, dynamic>();
-    String user1;
-    String user2;
-    String user3;
- void members() {
-    FirebaseFirestore.instance
-        .collection("GameRooms")
-        .doc("2pDzpmLy7nMX4LzTN6Tr")
-        .get()
-        .then((result) => {
-              //debugPrint(result["members"].toString()),
-              membersID.addAll(result["members"]),
-              memberList.addAll(membersID.keys),         
-              memberList.remove(_auth.currentUser.uid),
-               user1 = membersID.keys.elementAt(0),
-               user2 = membersID.keys.elementAt(1),
-               user3 = membersID.keys.elementAt(2),
-
-
-              userAnswers ={
-                user1 : 0,
-                user2: 0,
-                user3 : 0
-              }
-
-            });
-  }
-  void answerKey(){
-
-  }
-void mem()  {
-    FirebaseFirestore.instance
-        .collection('GameRooms')
-        .doc('2pDzpmLy7nMX4LzTN6Tr')
-        .get()
-        .then((result) => {
-          debugPrint(result["members"].toString()+"bu da mı yok"),
-              questions4.addAll(result["members"]),
-              // debugPrint(questions4.toString()+"bbb"),
-               questions4.remove(_auth.currentUser.uid)
+//  void members() {
+//     FirebaseFirestore.instance
+//         .collection("GameRooms")
+//         .doc("2pDzpmLy7nMX4LzTN6Tr")
+//         .get()
+//         .then((result) => {
+//               //debugPrint(result["members"].toString()),
+//               membersID.addAll(result["members"]),
+//               memberList.addAll(membersID.keys),         
+//               memberList.remove(_auth.currentUser.uid)
+//             });
+//   }
+// void mem()  {
+//     FirebaseFirestore.instance
+//         .collection('GameRooms')
+//         .doc('2pDzpmLy7nMX4LzTN6Tr')
+//         .get()
+//         .then((result) => {
+//           debugPrint(result["members"].toString()+"bu da mı yok"),
+//               questions4.addAll(result["members"]),
+//               // debugPrint(questions4.toString()+"bbb"),
+//                questions4.remove(_auth.currentUser.uid)
 
                
-            });
+//             });
            
-    //   checkAnswer();
-    // debugPrint(questions3.toString()+"as");
-   if(mounted){
-     setState(() {
+//     //   checkAnswer();
+//     // debugPrint(questions3.toString()+"as");
+//    if(mounted){
+//      setState(() {
      
-   });
-   }
- //   debugPrint(questions4.toString()+"bbb");
-//debugPrint(han.toString()+"sjadklsaş");
+//    });
+//    }
+//  //   debugPrint(questions4.toString()+"bbb");
+// //debugPrint(han.toString()+"sjadklsaş");
 
-  }
+//   }
   void oku()  {
     FirebaseFirestore.instance
         .collection('questions')
@@ -245,140 +209,87 @@ void mem()  {
     final Stream<QuerySnapshot> _usersStream =
         FirebaseFirestore.instance.collection('questions').snapshots();
     oku();
-    members();
-    mem();
-    debugPrint(widget.oyuncular.toString()+"aranan kan");
+   // members();
+    //mem();
  
     return ChangeNotifierProvider(
         create: (_) => AuthServices(),
         child: Scaffold(
             resizeToAvoidBottomInset: true,
-            body: isLoading ?
-            Center(child: Column(
-              mainAxisAlignment:MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left:15.0),
-                  child: Image.network("https://www.hareketligifler.net/data/media/1261/kum-saati-hareketli-resim-0007.gif"),
-                ),
-              
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text("RAKİPLERİN SENİ BEKLİYOR!",style:
-                     TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:24,)
-
-                     ),
-                  ),
-                ),
-                 SizedBox(height: 40,),
-              //    Center(child: Text("Simay Ekici",style:
-              //    TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:28,)
-              //    ),),
-              //    SizedBox(height: 20,),
-              //    Center(child: Text("USER 1",style:
-              //    TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:28,))),
-              //                     SizedBox(height: 20,),
-
-              //  Center(child: Text("USER2 ",style:
-              //    TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:28,)))
-
-              ],
-            )) : SingleChildScrollView(
+            body: SingleChildScrollView(
               reverse: true,
-              child: Column(
-                crossAxisAlignment:CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: IconButton(
-                          
-                            icon:Text("Ayrıl ",
-                              style: TextStyle(
-                                           fontSize: 14,
-                                           color: Colors.white,
-                                           fontWeight: FontWeight.bold)),
-                                          onPressed: () {
-                                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LobiPage()
-                            ),
-                           ) ;
-},
+              child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50.0),
+                            topRight: Radius.circular(50.0),
                           ),
-                    ),
-                  ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50.0),
-                          topRight: Radius.circular(50.0),
-                        ),
-                        child: Container(
-                          color: Colors.blueGrey.shade300,
-                          height: 80,
-                          width: 150,
-                          child: Row(
-                            children: [
-                               Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                 child: ClipOval(
-                                   child: Image.network(
-                                     _auth.currentUser.photoURL,
+                          child: Container(
+                            color: Colors.blueGrey.shade300,
+                            height: 80,
+                            width: 150,
+                            child: Row(
+                              children: [
+                                 Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                   child: ClipOval(
+                                     child: Image.network(
+                                       _auth.currentUser.photoURL,
+                                     ),
                                    ),
                                  ),
-                               ),
-                              SizedBox(
-                                width: 3.0,
-                              ),
-                               Expanded(
-                                   child: Text(
-                                _auth.currentUser.displayName,
-                                 style: TextStyle(
-                                     fontSize: 16,
-                                     color: Colors.white,
-                                     fontWeight: FontWeight.bold),
-                               ))
-                            ],
-                          ),
-                        )),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5.0),
-                          topRight: Radius.circular(5.0),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueGrey.shade300,
-                          ),
-                          height: 80,
-                          width: 150,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(cntt !=4 ?_start.toString() : " ",
-                                    style: TextStyle(
-                                        fontSize: 36,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
-                                VerticalDivider(
-                                  color: Colors.white60,
+                                SizedBox(
+                                  width: 3.0,
                                 ),
+                                 Expanded(
+                                     child: Text(
+                                  _auth.currentUser.displayName,
+                                   style: TextStyle(
+                                       fontSize: 16,
+                                       color: Colors.white,
+                                       fontWeight: FontWeight.bold),
+                                 ))
                               ],
                             ),
+                          )),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5.0),
+                            topRight: Radius.circular(5.0),
                           ),
-                        ))
-                  ],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey.shade300,
+                            ),
+                            height: 80,
+                            width: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(cntt !=4 ?_start.toString() : " ",
+                                      style: TextStyle(
+                                          fontSize: 36,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold)),
+                                  VerticalDivider(
+                                    color: Colors.white60,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
                 Stack(children: [
                   Center(
@@ -406,33 +317,7 @@ void mem()  {
                                   child: Center(
                                    child: Padding(
                                       padding: const EdgeInsets.all(28.0),
-                                      child: StreamBuilder(
-                                     stream: firestoreInstance
-                                         .collection('GameRooms')
-                                         .doc("2pDzpmLy7nMX4LzTN6Tr")
-                                         .snapshots(),
-                                     builder: (context,
-                                         AsyncSnapshot<DocumentSnapshot>
-                                             snapshot) {
-                                       if (!snapshot.hasData) {
-                                         return Text("Loading");
-                                       }
-                                       var userDocument = snapshot.data;
-                                       //debugPrint( userDocument["members"][0]);
-                                       debugPrint(userDocument["members"][
-                                               _auth.currentUser.uid
-                                                   .toString()]
-                                           .toString());
-                                  
-                                       return (userDocument["members"][
-                                                       questions4.keys
-                                                           .elementAt(0)] ==
-                                                   4 ||
-                                               userDocument["members"][
-                                                       questions4.keys
-                                                           .elementAt(1)] ==
-                                                   4 ||   userDocument["members"][_auth.currentUser.uid] ==4)
-                                                       
+                                      child: ( cntt==4 )
                                                        
                                            ? 
           Dialog(
@@ -459,21 +344,22 @@ void mem()  {
                                             fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(height: 10,),
-                    Text("KAZANAN ",
-                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
+                    
                     SizedBox(height: 30,),
                      SizedBox(
                       width: 320.0,
                       child: RaisedButton(
-                        onPressed: () { Navigator.push(
+                        onPressed: () { 
+                          Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => LobiPage()
+                         
                         ),
+                      
                        ) ;
+                          cntt = 0;
+                          
 },
                         child: Text(
                           "ANASAYFAYA DÖN",
@@ -484,15 +370,15 @@ void mem()  {
                     )
                   ],
                 ),
-                )))
+                )))  
                
              
                                            : Text(
                                                questions3.keys.elementAt(sim),style:
                                                TextStyle(fontWeight: FontWeight.bold,
                                                color:Colors.white,
-                                               fontSize:24));
-                                     }),
+                                               fontSize:24))
+                                     
                                     ))))),
                     ),
                   ),
@@ -512,7 +398,7 @@ void mem()  {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onChanged: (val) {
-                                val = _answerController.text.toString();                           
+                                val = _answerController.text.toString();
                                 // debugPrint(val);
                               },
                               decoration: new InputDecoration(
@@ -549,6 +435,8 @@ void mem()  {
                    onPressed: () {
                   
                     isAnswered = true;
+                    debugPrint(isAnswered.toString());
+
 
                     var isim = _answerController.text;
                     debugPrint(isim.toString() + "bu mu");
@@ -556,17 +444,14 @@ void mem()  {
                   //  debugPrint(isim.toString());
                    // debugPrint(_answerController.text.toString());
                    // debugPrint(questions3.values.elementAt(sim).toString() +
-                   //[current user:0] =>no answer o zaman value at current user will be dated
-                   userAnswers[_auth.currentUser.uid] = isim;    
-                   debugPrint(userAnswers[_auth.currentUser.uid].toString()+"bu kisi cevabı") ;    
-                   //cevaları güncelledik simdi gerekli olan su
+                              
                     if (isim.toString() == questions3.values.elementAt(sim).toString()) {
                       cntt++;
 
-                      var setAda = firestoreInstance
-                                .collection('GameRooms')
-                                .doc('2pDzpmLy7nMX4LzTN6Tr')
-                                .update({"members.$nestedkey": cntt});
+                      // var setAda = firestoreInstance
+                      //           .collection('GameRooms')
+                      //           .doc('2pDzpmLy7nMX4LzTN6Tr')
+                      //           .update({"members.$nestedkey": cntt});
                     }
 
                  //   debugPrint(cntt.toString());

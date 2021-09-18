@@ -2,6 +2,7 @@ import 'package:eight_seconds/screens/createGroup.dart';
 import 'package:eight_seconds/screens/joinRoom.dart';
 import 'package:eight_seconds/models/auth_service.dart';
 import 'package:eight_seconds/screens/questionPage.dart';
+import 'package:eight_seconds/screens/quickGame.dart';
 import 'package:eight_seconds/screens/waitingRoom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -222,7 +223,7 @@ class _LobiPageState extends State<LobiPage> {
                           MaterialPageRoute(
                             builder: (context) => ChangeNotifierProvider(
                                 create: (_) => AuthServices(),
-                                child: CreateGroup()),
+                                child: QuickGame()),
                           ),
                         );
                       },
